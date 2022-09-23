@@ -2,6 +2,7 @@
 import './style.css';
 import { startCase } from 'lodash';
 import _ from 'lodash';
+import moment = require('moment');
 
 // Write TypeScript code!
 const data = {
@@ -98,6 +99,21 @@ const temp1 =
 
 const message = formatTemplateMessage(temp1, { ...data.params });
 
-console.log(message);
-
+//console.log(message);
+const q = 1655865879000;
 // Just modify what you want
+const endDay = moment(q).utc().endOf('day').valueOf();
+const f = moment(q).isoWeek();
+const y = moment(q).endOf('isoWeek').utc().valueOf();
+const u = moment(q).endOf('month').utc();
+const i = moment(q).subtract(1, 'months').endOf('month').utc();
+var a = moment(u);
+var b = moment(i);
+console.log(a.diff(b, 'months')); // =1
+
+const timestamp = moment(y, 'YYYY')
+  .add(f, 'weeks')
+  .endOf('isoWeek')
+  .utc()
+  .valueOf();
+console.log(i.valueOf());
