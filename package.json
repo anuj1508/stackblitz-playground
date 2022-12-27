@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@types/lodash": "^4.14.123",
-    "lodash": "^4.17.11",
-    "moment": "^2.29.1"
+    "@types/lodash": "^4.14.191",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "pug": "^3.0.2"
   }
 }
