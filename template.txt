@@ -1,0 +1,67 @@
+doctype(html)
+html
+    head
+        link(rel="stylesheet" href="style.css")
+        link(rel="preconnect" href="https://fonts.gstatic.com")
+        link(rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato:wght@100;200;300;400;500;600&display=swap")
+        title Msp Invited
+        style(type="text/css").
+            p {
+                margin: 0px;
+            }
+    div(style='width: 800px; margin: auto; background:#F5F7F9; padding:20px 28px;')
+        div(style='margin: auto; background:#FFFFFF; border-radius:8px; box-shadow: 0px 0px 64px rgba(0, 0, 0, 0.06);')
+            - const {orgId, orgName, displayName, orgLogo: {original}, configs: {branding: {header}}} = org;
+            - const firstCaseUpperDisplayName= displayName.charAt(0).toUpperCase() + displayName.slice(1);
+            - const svg = 'https://content.buyerassist.io/public/emails/msp-invitation.png';
+            div(style='padding:28px')
+                div()
+                    img(style=`height: 20px; display: inline-block; padding: 16px; border-radius: 10px;` src=original)
+                div(style="text-align:center")
+                    img(width="300" height="180" style=`display: inline-block; padding: 16px; border-radius: 10px;` src=svg)
+                p(style='margin:8px; font-style: normal; font-weight: 400; font-size: 13px; line-height: 22px; color: black; text-transform: capitalize;') Hi #{recipient.firstName},
+                div #[p(style='margin:8px; font-style: normal; font-weight: 400; font-size: 13px; line-height: 22px; color: black') #[span(style='font-weight: 600; text-transform: capitalize; font-size: 13px;') #{sender.firstName}] has invited you to collaborate on a #[span(style='font-weight: 600; color:#485CF0; font-size: 13px;') Mutual Success Plan] between #[span(style='font-weight: 600; text-transform: capitalize; font-size: 13px;') #{msp.buyerCompanyName}] and #[span(style='font-weight: 600; text-transform: capitalize; font-size: 13px;') #{firstCaseUpperDisplayName}]. This is a secure workspace, purpose-built  for selling and buying teams to align, collaborate, and enable each other for mutual success. ] 
+                if(message)
+                    div(style="margin:8px; margin-top: 20px")
+                        div(style='border: 1px solid #ECF0F4; background: #F8FAFC; border-radius: 6px; height: auto; padding:10px;')
+                            p(style='margin:8px; font-style: normal; font-weight: 600; font-size: 13px; line-height: 18px; color: black; text-transform: capitalize;') Message from #{sender.firstName}
+                            p(style='margin:8px; font-style: normal; font-weight: 400; font-size: 13px; line-height: 16px; color: black; font-style: italic; text-transform: capitalize;') Hi #{recipient.firstName},
+                            div(style='margin:8px; font-style: normal; font-weight: 400; font-size: 13px; line-height: 16px; color: black; font-style: italic;') !{message}
+                p(style='margin:20px 0px; padding:20px 10px;') #[a(style='text-decoration: none; border-radius: 4px; padding: 16px 24px; background-color: #485CF0; font-weight: 500; font-size: 12px; line-height: 18px; color: #ffffff' href=`{msp.usp.link}`) Start Collaborating Now!]
+                if(msp.economicImpact)
+                    div(style='margin-left:8px;')
+                        p(style='margin:0px; font-style: normal; font-weight: 400; font-size: 13px; line-height: 22px; color: black') In case you need some more context, here is something for you.
+                        p(style='margin:0px; margin-top: 20px; font-style: normal; font-weight: 700; font-size: 13px; line-height: 22px; color: black') Business objective
+                        div(style='margin:0px; font-style: normal; font-weight: 400; font-size: 13px; line-height: 22px; color: black') !{msp.economicImpact}
+                if(tasks.length !== 0)
+                    div(style='margin: 20px 0px')
+                        p(style='margin:8px; font-style: normal; font-weight: 700; font-size: 13px; line-height: 22px; color: black') Preview of the plan
+                        table(style='margin:8px; border: 1px solid #DEE3E8; border-collapse: collapse' cellspacing=0)
+                            thead(style='display: table-header-group; background: #F9FAFB; border-bottom: 1px solid #DEE3E8;')
+                                th(style='text-align:left; padding: 19px; color: #59758A; font-style: normal; font-weight: 400; font-size: 13px; line-height: 12px;') Task Name
+                                th(style='text-align:left; padding: 19px; color: #59758A; font-style: normal; font-weight: 400; font-size: 13px; line-height: 12px;') Milestone Name 
+                                th(style='text-align:left; padding: 19px; color: #59758A; font-style: normal; font-weight: 400; font-size: 13px; line-height: 12px;') Assignee
+                                th(style='text-align:left; padding: 19px; color: #59758A; font-style: normal; font-weight: 400; font-size: 13px; line-height: 12px;') Due date
+                            each task in tasks
+                                tr(style='border-bottom: 1px solid #DEE3E8;')
+                                    td(style='padding: 2px 19px; border-left: 1px solid #DEE3E8')
+                                        div(style='width:196px; text-overflow: ellipsis;text-align:left;')
+                                            p(title=`{task.name}` style='font-style: normal;font-weight: 400;font-size: 13px;line-height: 20px;white-space:nowrap;overflow: hidden;text-overflow: ellipsis; color: #1B252F;') #{task.name}
+                                    td(style='padding: 2px 19px')
+                                        div(style='width:184px; text-overflow: ellipsis;text-align:left;')
+                                            p(title=`{task.milestone.name}` style='font-style: normal;font-weight: 400;font-size: 13px;line-height: 20px;white-space:nowrap;overflow: hidden;text-overflow: ellipsis; color: #1B252F;') #{task.milestone.name}
+                                    td(style='padding: 2px 9px')
+                                        div(style='width:122px; text-overflow: ellipsis; display:flex;')
+                                            div(style="padding:12px 4px; display:flex")
+                                                div(style="height: 20px; width: 20px; border-radius: 100px; background: #919DF6;")
+                                                    p(style="font-style: normal;font-weight: 900;font-size: 7px; text-align:center; margin-top:6px; color: #FFFFFF") #{task.assignee.name.split(' ').map((word) => word[0].toUpperCase()).join('')}
+                                            p(title=`{task.assignee.name}` style='font-style: normal;font-weight: 400;font-size: 13px;line-height: 20px;white-space:nowrap;overflow: hidden;text-overflow: ellipsis; color: #1B252F; margin: 12px 0px; text-transform: capitalize;') #{task.assignee.name}
+                                    td(style='padding: 2px 19px;')
+                                        div(style='width:88px; text-overflow: ellipsis;')
+                                            p(title=`{task.dueDate}` style='font-style: normal;font-weight: 400;font-size: 13px;line-height: 20px;white-space:nowrap;overflow: hidden;text-overflow: ellipsis; color: #1B252F;') #{task.dueDate}
+                div(style='margin:8px; border: 1px solid #ECF0F4; background: #F8FAFC; border-radius: 6px; height: auto; padding:20px; display:flex')
+                    div(style="display:flex; padding-top: 10px")
+                        img(style=`height: 18px; display:flex; border-radius: 10px;` src=original)
+                    div(style=" margin-left: auto")
+                        p(style='margin:8px; font-style: normal; font-weight: 600; font-size: 13px; color: black; margin:0px;') Have a nice day!
+                        p(style='margin:8px; font-style: normal; font-weight: 400; font-size: 13px; color: #495159; margin:0px;') Team #{firstCaseUpperDisplayName}
