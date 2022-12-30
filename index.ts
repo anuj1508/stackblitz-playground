@@ -1,9 +1,7 @@
 // Import stylesheets
 import './style.css';
-import { template as lodashTemplate } from 'lodash';
+import { startCase } from 'lodash';
 import _ from 'lodash';
-import pug from 'pug';
-import fs from 'fs';
 import moment = require('moment');
 
 // Write TypeScript code!
@@ -29,11 +27,48 @@ const data = {
         fullName: 'Nitesh Jha',
       },
       {
-        firstName: 'Nitesh',
-        lastName: 'Jha',
-        fullName: 'Nitesh Jha',
+        firstName: 'Sumit',
+        lastName: 'Agarwal',
+        fullName: 'Sumit Agarwal',
       },
     ],
+    currentSubs: {
+      internal: [
+        {
+          firstName: 'Sumit',
+          lastName: 'Agarwal',
+          fullName: 'Sumit Agarwal',
+        },
+        {
+          firstName: 'Sumit',
+          lastName: 'Agarwal',
+          fullName: 'Sumit Agarwal',
+        },
+        {
+          firstName: 'Sumit',
+          lastName: 'Agarwal',
+          fullName: 'Sumit Agarwal',
+        },
+      ],
+      external: [
+        {
+          firstName: 'Sumit',
+          lastName: 'Agarwal',
+          fullName: 'Sumit Agarwal',
+        },
+        {
+          firstName: 'Sumit',
+          lastName: 'Agarwal',
+          fullName: 'Sumit Agarwal',
+        },
+        {
+          firstName: 'Sumit',
+          lastName: 'Agarwal',
+          fullName: 'Sumit Agarwal',
+        },
+      ],
+      othersCount: 4,
+    },
   },
   sender: {
     id: '8bf935a4-6171-419b-b831-fd67b656ed8a',
@@ -51,10 +86,11 @@ const data = {
   recipients: [
     {
       id: '3b714493-ba8a-45f0-a1ca-cdb549721fb7',
-      email: 'nitesh.jha@buyerassist.io',
-      firstName: 'Nitesh',
-      lastName: 'Jha',
+      email: 'mantha.bhatia@buyerassist.io',
+      firstName: 'Manthan',
+      lastName: 'Bhatia',
       persona: 'MSP_INVITEE',
+      userType: 'BUYER',
     },
     {
       id: 'd2aae9ef-dd02-4be6-9978-d709a7b57573',
@@ -62,6 +98,7 @@ const data = {
       firstName: 'Anuj',
       lastName: 'Gupta',
       persona: 'MSP_OWNER',
+      userType: 'SELLER',
     },
   ],
   metadata: {
@@ -76,7 +113,7 @@ const data = {
   },
   account: {
     id: '6322e923a95db800088abde8',
-    name: 'Manthan',
+    name: 'Jayant',
   },
   orgId: 'originals',
   createdById: '8bf935a4-6171-419b-b831-fd67b656ed8a',
@@ -103,12 +140,12 @@ export const formatTemplateMessage = (
   return compiled(data);
 };
 
-var text = fs.readFileSync('./template.txt');
-var textByLine = text.split('\n');
-
 const temp =
   "Invited **<%_.join(_.map(invitees, invitee => {return invitee.firstName}), ',')%>** to MSP **${msp.name}**";
 const temp1 =
   'Invited **<%_.map(invitees, function(resource) { %><%- resource.firstName %><% })%>** to MSP **${msp.name}**';
+const collabMessage = 'invited to this plan';
 
-const message = formatTemplateMessage(temp1, { ...data.params });
+const message = formatTemplateMessage(temp, { ...data.params });
+
+console.log(message);
